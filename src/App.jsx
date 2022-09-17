@@ -6,7 +6,7 @@ const App = () => {
   const [blur, setBlur] = useState(0)
   const [spread, setSpread] = useState(0)
   const [shadowColor, setShadowColor] = useState('#1c1c1c')
-  const [opacity, setOpacity] = useState(0)
+  const [opacity, setOpacity] = useState(0.5)
   const [shadow, setShadow] = useState('')
 
   useEffect(() => {
