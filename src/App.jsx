@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 const App = () => {
   const [xAxis, setXAxis] = useState(0)
@@ -8,6 +9,16 @@ const App = () => {
   const [shadowColor, setShadowColor] = useState('#1c1c1c')
   const [opacity, setOpacity] = useState(0.5)
   const [shadow, setShadow] = useState('')
+  const [boxColor, setBoxColor] = useState('#f1f1f1')
+  const [boxRounded, setBoxRounded] = useState(0)
+
+  useEffect(() => {
+    setBoxColor(boxColor)
+  }, [boxColor])
+
+  useEffect(() => {
+    setBoxRounded(boxRounded)
+  }, [])
 
   useEffect(() => {
     setShadow(
@@ -47,77 +58,116 @@ const App = () => {
 
   return (
     <div className='App'>
-      <div className='controls'>
-        <label htmlFor='x'>
-          X Axis:{' '}
-          <input
-            type='range'
-            min='-100'
-            max='100'
-            value={xAxis}
-            id='x'
-            onChange={(e) => setXAxis(e.target.value)}
-          />
-        </label>
-        <label htmlFor='y'>
-          Y Axis:{' '}
-          <input
-            type='range'
-            min='-100'
-            max='100'
-            value={yAxis}
-            id='y'
-            onChange={(e) => setYAxis(e.target.value)}
-          />
-        </label>
-        <label htmlFor='blur'>
-          Blur:{' '}
-          <input
-            type='range'
-            min='0'
-            max='300'
-            value={blur}
-            id='blur'
-            onChange={(e) => setBlur(e.target.value)}
-          />
-        </label>
-        <label htmlFor='spread'>
-          Spread:{' '}
-          <input
-            type='range'
-            min='-200'
-            max='200'
-            value={spread}
-            id='spread'
-            onChange={(e) => setSpread(e.target.value)}
-          />
-        </label>
-        <label htmlFor='shadowColor'>
-          ShadowColor:
-          <input
-            type='color'
-            id='shadowColor'
-            value={shadowColor}
-            onChange={(e) => setShadowColor(e.target.value)}
-          />
-        </label>
-        <label htmlFor='opacity'>
-          Opacity:
-          <input
-            type='range'
-            min='0.00'
-            max='1.00'
-            step='0.1'
-            value={opacity}
-            id='opacity'
-            onChange={(e) => setOpacity(e.target.value)}
-          />
-        </label>
+      <h1 className='title'>css box shadow generator</h1>
+      <div className='main-container'>
+        <div className='controls'>
+          <h3 className='inner-title'>Box Controls</h3>
+          <label htmlFor='boxColor'>
+            Box Color:
+            <input
+              type='color'
+              id='boxColor'
+              value={boxColor}
+              onChange={(e) => setBoxColor(e.target.value)}
+            />
+          </label>
+          <label htmlFor='rounded'>
+            Rounded:
+            <input
+              type='range'
+              id='rounded'
+              min='0'
+              max='50'
+              value={boxRounded}
+              onChange={(e) => setBoxRounded(e.target.value)}
+            />
+          </label>
+          <br />
+
+          <h3 className='inner-title'>Shadow Controls</h3>
+          <label htmlFor='x'>
+            X Axis:{' '}
+            <input
+              type='range'
+              min='-100'
+              max='100'
+              value={xAxis}
+              id='x'
+              onChange={(e) => setXAxis(e.target.value)}
+            />
+          </label>
+          <label htmlFor='y'>
+            Y Axis:{' '}
+            <input
+              type='range'
+              min='-100'
+              max='100'
+              value={yAxis}
+              id='y'
+              onChange={(e) => setYAxis(e.target.value)}
+            />
+          </label>
+          <label htmlFor='blur'>
+            Blur:{' '}
+            <input
+              type='range'
+              min='0'
+              max='300'
+              value={blur}
+              id='blur'
+              onChange={(e) => setBlur(e.target.value)}
+            />
+          </label>
+          <label htmlFor='spread'>
+            Spread:{' '}
+            <input
+              type='range'
+              min='-200'
+              max='200'
+              value={spread}
+              id='spread'
+              onChange={(e) => setSpread(e.target.value)}
+            />
+          </label>
+          <label htmlFor='shadowColor'>
+            ShadowColor:
+            <input
+              type='color'
+              id='shadowColor'
+              value={shadowColor}
+              onChange={(e) => setShadowColor(e.target.value)}
+            />
+          </label>
+          <label htmlFor='opacity'>
+            Opacity:
+            <input
+              type='range'
+              min='0.00'
+              max='1.00'
+              step='0.1'
+              value={opacity}
+              id='opacity'
+              onChange={(e) => setOpacity(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className='preview'>
+          <div
+            className='box'
+            style={{
+              boxShadow: shadow,
+              background: boxColor,
+              borderRadius: `${boxRounded}%`,
+            }}
+          ></div>
+        </div>
       </div>
-      <div className='preview'>
-        <div className='box' style={{ boxShadow: shadow }}></div>
+      <div className='copy-container'>
+        <code className='code'>box-shadow: {shadow}</code>
+        <CopyToClipboard text={`box-shodow: ${shadow} `}>
+          <button className='copy-btn'>copy</button>
+        </CopyToClipboard>
       </div>
-      <code className='code'>box-shodow: {shadow}</code>
     </div>
   )
 }
