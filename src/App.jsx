@@ -164,7 +164,7 @@ const App = () => {
       </div>
       <div className='copy-container'>
         <code className='code'>box-shadow: {shadow}</code>
-        <CopyToClipboard text={`box-shodow: ${shadow} `}>
+        <CopyToClipboard text={`box-shadow: ${shadow} `}>
           <button className='copy-btn'>copy</button>
         </CopyToClipboard>
       </div>
